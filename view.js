@@ -1,20 +1,36 @@
+let numCols = 7;
+let numRows = 6;
+
 window.onload = function () {
   const $board = document.getElementById("board");
 
-  for (let i = 0; i < 7; i++) {
-    const $col = document.createElement('div');
-    $col.setAttribute('class', 'col')
-    $col.setAttribute('id', i);
+  for (let colId = 0; colId < numCols; colId++) {
+    const $col = createColumn(colId);
 
-    for (let j = 0; j < 6; j++) {
-      const $square = document.createElement('div');
-      $square.setAttribute('class', 'square')
-      $square.setAttribute('id', '' + i + j);
+    for (let rowId = 0; rowId < numRows; rowId++) {
+      const $square = createSquare(colId, rowId);
+
       $col.appendChild($square);
     }
     $board.appendChild($col);
   }
   addColumnClickHandlers()
+}
+
+function createColumn(colId) {
+  const $col = document.createElement('div');
+  $col.setAttribute('class', 'col');
+  $col.setAttribute('id', colId);
+
+  return $col;
+}
+
+function createSquare(colId, rowId) {
+  const $square = document.createElement('div');
+  $square.setAttribute('class', 'square')
+  $square.setAttribute('id', '' + colId + rowId);
+
+  return $square;
 }
 
 function updateBoard(id) {
