@@ -12,7 +12,7 @@
   margin: 10px auto;
 
   display: flex;
-  background-color: #0041C2
+  background-color: gold;
 }
 
 .col {
@@ -25,13 +25,13 @@
   border-radius: 50%;
   margin: 5px;
   flex: 1;
-  background-color: white;
+  background-color: beige;
 }
 
 .hotdog {
-  background-color: red;
+  background-color: rgb(215,0,0.800);
 }
 
 .hamburger {
-  background-color: yellow;
+  background-color: rgb(15,15,0.800);
 }
