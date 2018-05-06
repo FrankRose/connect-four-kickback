@@ -4,13 +4,31 @@ const game = new Game();
 function addColumnClickHandlers() {
   const $columns = document.getElementsByClassName('col');
   for (let $col of $columns) {
-    // console.log('hey?')
-    $col.addEventListener('click', function (e) {
-      e.preventDefault();
-      // console.log('hello', e.target.id)
-      const id = e.target.id;
-      game.playTurn(id);
-      updateBoard(id);
-    });
+    // $col.addEventListener('click', function (square) {
+    //   square.preventDefault();
+    //   console.log(square);
+
+    //   if (square.target.parentNode.id === 'board') {
+    //     return;
+    //   }
+
+    //   const colId = square.target.parentNode.id;
+    //   game.playTurn(colId);
+    //   updateBoard(colId);
+    // });
+    $col.addEventListener('click', addPieces);
+  }
+}
+
+function addPieces(clickEvent) {
+  clickEvent.preventDefault();
+  let target = clickEvent.target;
+  let parent = target.parentNode;
+
+  if(Number.isInteger(parseInt(parent.id))) {
+    // console.log(target.id);
+    //  TODO: Change these methods to accept column id
+    game.playTurn(target.id);
+    updateBoard(target.id);
   }
 }

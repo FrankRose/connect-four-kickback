@@ -18,14 +18,17 @@ function Game() {
       change active turn
       and check winner
 */
-Game.prototype.playTurn = function (col) {
+Game.prototype.playTurn = function (colId) {
   // console.log(col, typeof col)
-  col = col.slice(0, 1);
-  col = parseInt(col);
+  console.log(colId);
+  colId = colId.slice(0, 1);
+  console.log(colId);
+  colId = parseInt(colId);
+  console.log(colId);
   if (this.winner) return;
-  if (this.matrix[col].length <= 6) {
-    this.dropPiece(col);
-    this.winner = this.checkWinner(col);
+  if (this.matrix[colId].length <= 6) {
+    this.dropPiece(colId);
+    this.winner = this.checkWinner(colId);
     this.isRed = !this.isRed;
   }
 }
