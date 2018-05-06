@@ -17,18 +17,22 @@ function Game() {
       and check winner
 */
 Game.prototype.playTurn = function (squareId) {
-  console.log('Square ID:', squareId);
-  
+  // console.log('Square ID:', squareId);
+  this.turn++;
+
   let colId = squareId.slice(0, 1);
-  console.log('Col ID:', colId);
+  // console.log('Col ID:', colId);
 
   colId = parseInt(colId);
-  console.log('Col ID (int):', colId);
+  // console.log('Col ID (int):', colId);
 
   // if (this.winner) return;
   if (this.matrix[colId].length <= 6) {
     this.dropPiece(colId);
     this.winner = this.checkWinner(colId);
+    if (this.winner) {
+      console.log('We have a winner');
+    }
     this.isRed = !this.isRed;
   }
 }
@@ -44,22 +48,17 @@ Game.prototype.playTurn = function (squareId) {
   TODO
 */
 Game.prototype.checkWinner = function (col) {
-  // if (this.verticalWin(col) || this.horizontalWin(col)) return true;
-  // return false;
   return this.verticalWin(col) || this.horizontalWin(col) || this.diagonalWin(col);
 }
 
 Game.prototype.verticalWin = function (col) {
-  // console.log(col)
-  // col = this.matrix[col];
+  if (this.matrix[col].length < 4) return false;
 
-  // if (col.length < 4) return false;
+  let last4 = this.matrix[col].slice(-4);
+  console.log(last4);
 
-  // for (let i = col.length - 2; i >= col.length - 5; i--) {
-  //   if (col[i] !== this.isRed) return false;
-  // }
-
-  // return true;
+  let isWinner = last4.every((val, i, arr) => arr[i] === arr[(i + 1) % arr.length]);
+  console.log(isWinner);
   return false;
 }
 

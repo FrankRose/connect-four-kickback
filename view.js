@@ -33,13 +33,19 @@ function createSquare(colId, rowId) {
   return $square;
 }
 
-function updateBoard(id) {
-  id = id.slice(0, 1);
-  const idx = game.matrix[id].length - 1;
-  const $square = document.getElementById('' + id + idx);
-  if (game.isRed) {
-    $square.setAttribute('class', 'square red');
-  } else {
-    $square.setAttribute('class', 'square black');
+function updateBoard(squareId) {
+  // console.log('Square ID:', squareId);
+
+  const colId = squareId.slice(0, 1);
+  // console.log('Column ID:', colId);
+  
+  const colIndx = game.matrix[colId].length - 1;
+  // console.log('Column Index:', colIndx);
+
+  const $square = document.getElementById('' + colId + colIndx);
+  // console.log($square);
+
+  if($square) {
+    $square.setAttribute('class', `square ${game.getCurrentColor()}`);
   }
 }
