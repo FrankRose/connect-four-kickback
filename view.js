@@ -22,8 +22,8 @@ function updateBoard(id) {
   const idx = game.matrix[id].length - 1;
   const $slot = document.getElementById('' + id + idx);
   if (game.isRed) {
-    $slot.setAttribute('class', 'slot hotdog');
+    $slot.setAttribute('class', 'slot red');
   } else {
-    $slot.setAttribute('class', 'slot hamburger');
+    $slot.setAttribute('class', 'slot black');
   }
 }

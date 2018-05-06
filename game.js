@@ -6,6 +6,8 @@
 function Game() {
   this.matrix = [[], [], [], [], [], [], []];
   this.isRed = true;
+  this.turn = 0;
+  this.colors = ['red', 'black'];
   this.winner = undefined;
 }
 

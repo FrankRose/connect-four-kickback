@@ -7,8 +7,8 @@
 }
 
 #board {
-  width: 70vw;
-  height: 60vw;
+  width: 700px;
+  height: 600px;
   margin: 10px auto;
 
   display: flex;
@@ -28,10 +28,10 @@
   background-color: beige;
 }
 
-.hotdog {
+.red {
   background-color: rgb(215,0,0.800);
 }
 
-.hamburger {
+.black {
   background-color: rgb(15,15,0.800);
 }
