@@ -18,17 +18,18 @@ function Game() {
       change active turn
       and check winner
 */
-Game.prototype.playTurn = function (colId) {
+Game.prototype.playTurn = function (squareId) {
   // console.log(col, typeof col)
-  console.log(colId);
-  colId = colId.slice(0, 1);
-  console.log(colId);
-  colId = parseInt(colId);
-  console.log(colId);
+  console.log(squareId);
+  squareId = squareId.slice(0, 1);
+  console.log(squareId);
+  squareId = parseInt(squareId);
+  console.log(squareId);
+
   if (this.winner) return;
-  if (this.matrix[colId].length <= 6) {
-    this.dropPiece(colId);
-    this.winner = this.checkWinner(colId);
+  if (this.matrix[squareId].length <= 6) {
+    this.dropPiece(squareId);
+    this.winner = this.checkWinner(squareId);
     this.isRed = !this.isRed;
   }
 }
@@ -44,21 +45,23 @@ Game.prototype.playTurn = function (colId) {
   TODO
 */
 Game.prototype.checkWinner = function (col) {
-  if (this.verticalWin(col) || this.horizontalWin(col)) return true;
-  return false;
+  // if (this.verticalWin(col) || this.horizontalWin(col)) return true;
+  // return false;
+  return this.verticalWin(col) || this.horizontalWin(col) || this.diagonalWin(col);
 }
 
 Game.prototype.verticalWin = function (col) {
   // console.log(col)
-  col = this.matrix[col];
+  // col = this.matrix[col];
 
-  if (col.length < 4) return false;
+  // if (col.length < 4) return false;
 
-  for (let i = col.length - 2; i >= col.length - 5; i--) {
-    if (col[i] !== this.isRed) return false;
-  }
+  // for (let i = col.length - 2; i >= col.length - 5; i--) {
+  //   if (col[i] !== this.isRed) return false;
+  // }
 
-  return true;
+  // return true;
+  return false;
 }
 
 /*
@@ -74,21 +77,23 @@ Game.prototype.verticalWin = function (col) {
   
 */
 Game.prototype.horizontalWin = function (col) {
-  const idx = this.matrix[col].length - 1;
+  // const idx = this.matrix[col].length - 1;
 
-  let count = 0;
-  for (let i = 0; i < this.matrix.length; i++) {
-    if (this.matrix[i][idx] === this.isRed) {
-      count++;
-      if (count === 4) return true;
-    } else {
-      count = 0;
-    }
-  }
+  // let count = 0;
+  // for (let i = 0; i < this.matrix.length; i++) {
+  //   if (this.matrix[i][idx] === this.isRed) {
+  //     count++;
+  //     if (count === 4) return true;
+  //   } else {
+  //     count = 0;
+  //   }
+  // }
   return false;
 }
 
-
+Game.prototype.diagonalWin = function(col) {
+  return false;
+}
 
 /*
   checks to see if the piece isRed

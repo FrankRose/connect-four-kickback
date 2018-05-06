@@ -22,13 +22,13 @@ function addColumnClickHandlers() {
 
 function addPieces(clickEvent) {
   clickEvent.preventDefault();
-  let target = clickEvent.target;
-  let parent = target.parentNode;
+  let square = clickEvent.target;
+  let column = square.parentNode;
 
-  if(Number.isInteger(parseInt(parent.id))) {
+  if(Number.isInteger(parseInt(column.id))) {
     // console.log(target.id);
     //  TODO: Change these methods to accept column id
-    game.playTurn(target.id);
-    updateBoard(target.id);
+    game.playTurn(square.id);
+    updateBoard(square.id);
   }
 }
