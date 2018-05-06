@@ -7,10 +7,10 @@ window.onload = function () {
     $col.setAttribute('id', i);
 
     for (let j = 0; j < 6; j++) {
-      const $slot = document.createElement('div');
-      $slot.setAttribute('class', 'slot')
-      $slot.setAttribute('id', '' + i + j);
-      $col.appendChild($slot);
+      const $square = document.createElement('div');
+      $square.setAttribute('class', 'square')
+      $square.setAttribute('id', '' + i + j);
+      $col.appendChild($square);
     }
     $board.appendChild($col);
   }
@@ -20,10 +20,10 @@ window.onload = function () {
 function updateBoard(id) {
   id = id.slice(0, 1);
   const idx = game.matrix[id].length - 1;
-  const $slot = document.getElementById('' + id + idx);
+  const $square = document.getElementById('' + id + idx);
   if (game.isRed) {
-    $slot.setAttribute('class', 'slot red');
+    $square.setAttribute('class', 'square red');
   } else {
-    $slot.setAttribute('class', 'slot black');
+    $square.setAttribute('class', 'square black');
   }
 }
