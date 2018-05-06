@@ -19,7 +19,7 @@ function Game() {
       and check winner
 */
 Game.prototype.playTurn = function (col) {
-  console.log(col, typeof col)
+  // console.log(col, typeof col)
   col = col.slice(0, 1);
   col = parseInt(col);
   if (this.winner) return;
@@ -46,7 +46,7 @@ Game.prototype.checkWinner = function (col) {
 }
 
 Game.prototype.verticalWin = function (col) {
-  console.log(col)
+  // console.log(col)
   col = this.matrix[col];
 
   if (col.length < 4) return false;
