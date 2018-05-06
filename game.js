@@ -26,11 +26,12 @@ Game.prototype.playTurn = function (squareId) {
   colId = parseInt(colId);
   // console.log('Col ID (int):', colId);
 
-  // if (this.winner) return;
-  if (this.matrix[colId].length <= 6) {
+  if (this.matrix[colId].length < 6) {
+    console.log('Dropping piece');
     this.dropPiece(colId);
-    this.winner = this.checkWinner(colId);
-    if (this.winner) {
+    this.updateBoard('' + colId);
+    console.log('column length', this.matrix[colId].length);
+    if (this.checkWinner(colId)) {
       console.log('We have a winner');
     }
     this.isRed = !this.isRed;
@@ -56,10 +57,8 @@ Game.prototype.verticalWin = function (col) {
 
   let last4 = this.matrix[col].slice(-4);
   console.log(last4);
-
-  let isWinner = last4.every((val, i, arr) => arr[i] === arr[(i + 1) % arr.length]);
-  console.log(isWinner);
-  return false;
+  
+  return last4.every((val, i, arr) => arr[i] === arr[(i + 1) % arr.length]);;
 }
 
 /*
@@ -106,4 +105,21 @@ Game.prototype.showWinningPieces = function () {}
 
 Game.prototype.getCurrentColor = function() {
   return this.colors[this.turn % 2];
+}
+
+Game.prototype.updateBoard = function (squareId) {
+  // console.log('Square ID:', squareId);
+
+  const colId = squareId.slice(0, 1);
+  // console.log('Column ID:', colId);
+  
+  const colIndx = game.matrix[colId].length - 1;
+  // console.log('Column Index:', colIndx);
+
+  const $square = document.getElementById('' + colId + colIndx);
+  // console.log($square);
+
+  if($square) {
+    $square.setAttribute('class', `square ${game.getCurrentColor()}`);
+  }
 }

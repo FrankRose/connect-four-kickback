@@ -29,6 +29,6 @@ function addPieces(clickEvent) {
     // console.log(target.id);
     //  TODO: Change these methods to accept column id
     game.playTurn(square.id);
-    updateBoard(square.id);
+    // updateBoard(square.id);
   }
 }

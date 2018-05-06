@@ -33,19 +33,19 @@ function createSquare(colId, rowId) {
   return $square;
 }
 
-function updateBoard(squareId) {
-  // console.log('Square ID:', squareId);
+// function updateBoard(squareId) {
+//   // console.log('Square ID:', squareId);
 
-  const colId = squareId.slice(0, 1);
-  // console.log('Column ID:', colId);
+//   const colId = squareId.slice(0, 1);
+//   // console.log('Column ID:', colId);
   
-  const colIndx = game.matrix[colId].length - 1;
-  // console.log('Column Index:', colIndx);
+//   const colIndx = game.matrix[colId].length - 1;
+//   // console.log('Column Index:', colIndx);
 
-  const $square = document.getElementById('' + colId + colIndx);
-  // console.log($square);
+//   const $square = document.getElementById('' + colId + colIndx);
+//   // console.log($square);
 
-  if($square) {
-    $square.setAttribute('class', `square ${game.getCurrentColor()}`);
-  }
-}
+//   if($square) {
+//     $square.setAttribute('class', `square ${game.getCurrentColor()}`);
+//   }
+// }
