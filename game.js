@@ -1,8 +1,6 @@
-
-
-/*
-  create an object that represents the game instance
-*/
+/**
+ * Represents game instance
+ */
 function Game() {
   this.matrix = [[], [], [], [], [], [], []];
   this.isRed = true;
@@ -19,17 +17,18 @@ function Game() {
       and check winner
 */
 Game.prototype.playTurn = function (squareId) {
-  // console.log(col, typeof col)
-  console.log(squareId);
-  squareId = squareId.slice(0, 1);
-  console.log(squareId);
-  squareId = parseInt(squareId);
-  console.log(squareId);
+  console.log('Square ID:', squareId);
+  
+  let colId = squareId.slice(0, 1);
+  console.log('Col ID:', colId);
 
-  if (this.winner) return;
-  if (this.matrix[squareId].length <= 6) {
-    this.dropPiece(squareId);
-    this.winner = this.checkWinner(squareId);
+  colId = parseInt(colId);
+  console.log('Col ID (int):', colId);
+
+  // if (this.winner) return;
+  if (this.matrix[colId].length <= 6) {
+    this.dropPiece(colId);
+    this.winner = this.checkWinner(colId);
     this.isRed = !this.isRed;
   }
 }
@@ -98,10 +97,14 @@ Game.prototype.diagonalWin = function(col) {
 /*
   checks to see if the piece isRed
 */
-Game.prototype.dropPiece = function (col) {
-  this.matrix[col].push(this.isRed);
+Game.prototype.dropPiece = function (colId) {
+  this.matrix[colId].push(this.isRed);
 }
 
 Game.prototype.resetGame = function () { }
 
+Game.prototype.showWinningPieces = function () {}
 
+Game.prototype.getCurrentColor = function() {
+  return this.colors[this.turn % 2];
+}
