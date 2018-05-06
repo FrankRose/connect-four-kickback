@@ -18,7 +18,6 @@ function Game() {
 */
 Game.prototype.playTurn = function (squareId) {
   // console.log('Square ID:', squareId);
-  this.turn++;
 
   let colId = squareId.slice(0, 1);
   // console.log('Col ID:', colId);
@@ -27,14 +26,17 @@ Game.prototype.playTurn = function (squareId) {
   // console.log('Col ID (int):', colId);
 
   if (this.matrix[colId].length < 6) {
+    this.turn++;
+    
     console.log('Dropping piece');
     this.dropPiece(colId);
+
     this.updateBoard('' + colId);
-    console.log('column length', this.matrix[colId].length);
+  
     if (this.checkWinner(colId)) {
       console.log('We have a winner');
     }
-    this.isRed = !this.isRed;
+    // this.isRed = !this.isRed;
   }
 }
 
