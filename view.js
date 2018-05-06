@@ -1,7 +1,7 @@
-let numCols = 7;
-let numRows = 6;
-
 window.onload = function () {
+  let numCols = 7;
+  let numRows = 6;
+
   const $board = document.getElementById("board");
 
   for (let colId = 0; colId < numCols; colId++) {

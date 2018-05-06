@@ -41,7 +41,6 @@ Game.prototype.verticalWin = function (colId) {
   if (this.matrix[colId].length < 4) return false;
 
   let last4 = this.matrix[colId].slice(-4);
-  console.log(last4);
   
   return this.checkSpacesForWin(last4);
 }
@@ -62,15 +61,13 @@ Game.prototype.horizontalWin = function (col) {
   let rowIndex = this.matrix[col].length - 1;
   let row = this.matrix.map(column => column[rowIndex]);
 
-  // console.log(row);
   let minIndex = Math.max(col - 3, 0);
   let maxIndex = Math.min(col + 3, 6);
-  // console.log('Min:', minIndex, 'Max:', maxIndex);
 
   if (maxIndex - minIndex >= 3) {
     for (let i = minIndex; i <= maxIndex - 3; i++) {
       let squares = row.slice(i, i + 4);
-      // console.log(squares);
+      
       if (this.checkSpacesForWin(squares)) return true;
     }
   }
