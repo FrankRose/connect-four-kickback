@@ -138,15 +138,23 @@ Game.prototype.updateBoard = function(squareId) {
 };
 
 Game.prototype.checkSpacesForWin = function(squares) {
-  let gameIsWon = squares.every(
+  if (squares.length < 4) {
+    return false;
+  }
+
+  let fourInRow = squares.every(
     (val, i, arr) => arr[i] === arr[(i + 1) % arr.length]
   );
 
-  if (gameIsWon) {
+  let allUndefined = squares.every(elem => elem === undefined);
+
+  let gameOver = fourInRow && !allUndefined;
+
+  if (gameOver) {
     this.showWinningPieces(squares);
   }
 
-  return gameIsWon;
+  return gameOver;
 };
 
 Game.prototype.gameOver = function() {};
