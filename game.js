@@ -75,8 +75,39 @@ Game.prototype.horizontalWin = function (col) {
   return false;
 }
 
-Game.prototype.diagonalWin = function(col) {
+Game.prototype.diagonalWin = function(colIndex) {
+  let rowIndex = this.matrix[colIndex].length - 1;
+  let square = [colIndex, rowIndex];
+  let slash = this.getSlash(colIndex - rowIndex);
+  let bkSlash = this.getBackslash(colIndex + rowIndex);
+
   return false;
+}
+
+Game.prototype.getSlash = function(difference) {
+  let slash = [];
+
+  for (let x = 0; x < 7; x++) {
+    let y = (difference - x) * -1;
+    if (y >= 0 && y < 6 && this.matrix[x][y] !== undefined) {
+      slash.push([x, y]);
+    }
+  }
+
+  return slash;
+}
+
+Game.prototype.getBackslash = function(sum) {
+  let backslash = [];
+
+  for (let x = 0; x < 7; x++) {
+    let y = sum - x;
+    if (y >= 0 && y < 6 && this.matrix[x][y] !== undefined) {
+      backslash.push([x, y]);
+    }
+  }
+
+  return backslash;
 }
 
 /*
