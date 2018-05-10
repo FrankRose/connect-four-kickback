@@ -16,48 +16,38 @@ function Game() {
       change active turn
       and check winner
 */
-Game.prototype.playTurn = function (squareId) {
+Game.prototype.playTurn = function(squareId) {
   let colId = squareId.slice(0, 1);
   colId = parseInt(colId);
 
   if (this.matrix[colId].length < 6) {
     this.turn++;
-    
+
     this.dropPiece(colId);
     this.updateBoard('' + colId);
-  
+
     if (this.checkWinner(colId)) {
       console.log('We have a winner');
     }
     this.isRed = !this.isRed;
   }
-}
+};
 
-Game.prototype.checkWinner = function (col) {
-  return this.verticalWin(col) || this.horizontalWin(col) || this.diagonalWin(col);
-}
+Game.prototype.checkWinner = function(col) {
+  return (
+    this.verticalWin(col) || this.horizontalWin(col) || this.diagonalWin(col)
+  );
+};
 
-Game.prototype.verticalWin = function (colId) {
+Game.prototype.verticalWin = function(colId) {
   if (this.matrix[colId].length < 4) return false;
 
   let last4 = this.matrix[colId].slice(-4);
-  
+
   return this.checkSpacesForWin(last4);
-}
+};
 
-/*
-  check the length of the col
-    get the index of the last item
-
-  have a count of how many in a row init at zero  
-  loop the matrix
-    check at the index we saved
-    if the piece at the index matches isRed increment counter
-      if the count is at four return true
-    else reset counter 
-  
-*/
-Game.prototype.horizontalWin = function (col) {
+Game.prototype.horizontalWin = function(col) {
   let rowIndex = this.matrix[col].length - 1;
   let row = this.matrix.map(column => column[rowIndex]);
 
@@ -67,13 +57,13 @@ Game.prototype.horizontalWin = function (col) {
   if (maxIndex - minIndex >= 3) {
     for (let i = minIndex; i <= maxIndex - 3; i++) {
       let squares = row.slice(i, i + 4);
-      
+
       if (this.checkSpacesForWin(squares)) return true;
     }
   }
 
   return false;
-}
+};
 
 Game.prototype.diagonalWin = function(colIndex) {
   let rowIndex = this.matrix[colIndex].length - 1;
@@ -81,63 +71,77 @@ Game.prototype.diagonalWin = function(colIndex) {
   let slash = this.getSlash(colIndex - rowIndex);
   let bkSlash = this.getBackslash(colIndex + rowIndex);
 
+  for (let col = 0; col < 4; col++) {
+    let slashSquares = slash.slice(col, col + 4);
+    let bkSlashSquares = bkSlash.slice(col, col + 4);
+
+    if (
+      this.checkSpacesForWin(slashSquares) ||
+      this.checkSpacesForWin(bkSlashSquares)
+    ) {
+      return true;
+    }
+  }
+
   return false;
-}
+};
 
 Game.prototype.getSlash = function(difference) {
   let slash = [];
 
   for (let x = 0; x < 7; x++) {
     let y = (difference - x) * -1;
-    if (y >= 0 && y < 6 && this.matrix[x][y] !== undefined) {
-      slash.push([x, y]);
+    if (y >= 0 && y < 6) {
+      slash.push(this.matrix[x][y]);
     }
   }
 
   return slash;
-}
+};
 
 Game.prototype.getBackslash = function(sum) {
   let backslash = [];
 
   for (let x = 0; x < 7; x++) {
     let y = sum - x;
-    if (y >= 0 && y < 6 && this.matrix[x][y] !== undefined) {
-      backslash.push([x, y]);
+    if (y >= 0 && y < 6) {
+      backslash.push(this.matrix[x][y]);
     }
   }
 
   return backslash;
-}
+};
 
 /*
   checks to see if the piece isRed
 */
-Game.prototype.dropPiece = function (colId) {
+Game.prototype.dropPiece = function(colId) {
   this.matrix[colId].push(this.isRed);
-}
+};
 
-Game.prototype.resetGame = function () { };
+Game.prototype.resetGame = function() {};
 
-Game.prototype.showWinningPieces = function (squares) {};
+Game.prototype.showWinningPieces = function(squares) {};
 
 Game.prototype.getCurrentColor = function() {
   return this.colors[this.turn % 2];
 };
 
-Game.prototype.updateBoard = function (squareId) {
+Game.prototype.updateBoard = function(squareId) {
   const colId = squareId.slice(0, 1);
   const colIndx = game.matrix[colId].length - 1;
   const $square = document.getElementById('' + colId + colIndx);
 
-  if($square) {
+  if ($square) {
     $square.setAttribute('class', `square ${game.getCurrentColor()}`);
   }
 };
 
 Game.prototype.checkSpacesForWin = function(squares) {
-  let gameIsWon = squares.every((val, i, arr) => arr[i] === arr[(i + 1) % arr.length]);
-  
+  let gameIsWon = squares.every(
+    (val, i, arr) => arr[i] === arr[(i + 1) % arr.length]
+  );
+
   if (gameIsWon) {
     this.showWinningPieces(squares);
   }
