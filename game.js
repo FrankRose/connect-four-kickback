@@ -119,9 +119,12 @@ Game.prototype.dropPiece = function(colId) {
   this.matrix[colId].push(this.isRed);
 };
 
-Game.prototype.resetGame = function() {};
+// Game.prototype.resetGame = function() {};
 
-Game.prototype.showWinningPieces = function(squares) {};
+// Game.prototype.showWinningPieces = function(squares) {
+//   squares.forEach(sqr => console.log(sqr));
+//   showWinner(this.getCurrentColor());
+// };
 
 Game.prototype.getCurrentColor = function() {
   return this.colors[this.turn % 2];

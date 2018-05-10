@@ -1,8 +1,10 @@
+// let $board;
+
 window.onload = function () {
   let numCols = 7;
   let numRows = 6;
 
-  const $board = document.getElementById("board");
+  const $board = document.getElementById('board');
 
   for (let colId = 0; colId < numCols; colId++) {
     const $col = createColumn(colId);
@@ -31,4 +33,36 @@ function createSquare(colId, rowId) {
   $square.setAttribute('id', '' + colId + rowId);
 
   return $square;
+}
+
+function showWinner(color) {
+  const $banner = document.createElement('h1');
+  $banner.setAttribute('class', 'winner');
+  $banner.innerHTML = `${color} has won`;
+  document.body.prepend($banner);
+
+  setTimeout(function () {
+    resetBoard();
+  }, 5000);
+}
+
+function showWinningPieces(squares) {
+  squares.forEach(sqr => {
+    console.log(sqr);
+    sqr.style.border = 'thick solid #0000FF';
+  });
+  showWinner(this.getCurrentColor());
+};
+
+function resetBoard() {
+  const $board = document.getElementById('board');
+  const $columns = $board.childNodes;
+
+  $columns.forEach(column => {
+    const $squares = column.childNodes;
+
+    $squares.forEach(div => {
+      div.classList.remove('black', 'red');
+    });
+  });
 }
