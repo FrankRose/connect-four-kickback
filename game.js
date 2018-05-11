@@ -7,6 +7,7 @@ function Game() {
   this.turn = 0;
   this.colors = ['red', 'black'];
   this.winner = undefined;
+  this.winningSquares = [];
 }
 
 /*
@@ -16,6 +17,7 @@ function Game() {
       change active turn
       and check winner
 */
+//  TODO: change this to accept the column id
 Game.prototype.playTurn = function(squareId) {
   let colId = squareId.slice(0, 1);
   colId = parseInt(colId);
@@ -31,6 +33,17 @@ Game.prototype.playTurn = function(squareId) {
     }
     this.isRed = !this.isRed;
   }
+};
+
+Game.prototype.getColumnId = function(squareId) {
+  return parseInt(squareId.slice(0, 1));
+};
+
+//  TODO: Verify this function
+Game.prototype.getSquareId = function(colId) {
+  let sqIndex =
+    this.matrix[colId].length > 0 ? this.matrix[colId].length - 1 : undefined;
+  return sqIndex || `${colId}${sqIndex}`;
 };
 
 Game.prototype.checkWinner = function(col) {
@@ -154,7 +167,8 @@ Game.prototype.checkSpacesForWin = function(squares) {
   let gameOver = fourInRow && !allUndefined;
 
   if (gameOver) {
-    this.showWinningPieces(squares);
+    showWinningPieces(squares);
+    showWinner(this.getCurrentColor());
   }
 
   return gameOver;

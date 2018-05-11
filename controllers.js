@@ -12,7 +12,12 @@ function addPieces(clickEvent) {
   let square = clickEvent.target;
   let column = square.parentNode;
 
-  if(Number.isInteger(parseInt(column.id))) {
-    game.playTurn(square.id);
+  if (Number.isInteger(parseInt(column.id))) {
+    // console.log('Column clicked =', column.id);
+    // console.log(column);
+    // console.log('Square clicked =', square);
+    // console.log(square);
+
+    game.playTurn(column.id);
   }
 }
