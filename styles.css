@@ -6,10 +6,16 @@
   --border: 1px solid #aaa;
 }
 
+#banner {
+  display: block;
+  height: 50px;
+}
+
 .winner {
   text-transform: capitalize;
   text-align: center;
   font-family: 'BioRhyme', serif;
+  font-size: 24px;
 }
 
 .scrap {

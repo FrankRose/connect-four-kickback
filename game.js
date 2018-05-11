@@ -1,6 +1,3 @@
-/**
- * Represents game instance
- */
 function Game() {
   this.matrix = [[], [], [], [], [], [], []];
   this.isRed = false;
@@ -8,42 +5,50 @@ function Game() {
   this.colors = ['red', 'black'];
   this.winner = undefined;
   this.winningSquares = [];
+  this.gameHasEnded = false;
 }
 
-/*
-  would check if its possible to drop a piece in a col
-    if possible 
-      runs dropPiece function
-      change active turn
-      and check winner
-*/
 //  TODO: change this to accept the column id
-Game.prototype.playTurn = function(squareId) {
-  let colId = squareId.slice(0, 1);
-  colId = parseInt(colId);
+Game.prototype.playTurn = function(column) {
+  let columnId = this.getColumnId(column);
 
-  if (this.matrix[colId].length < 6) {
+  if (this.matrix[columnId].length < 6) {
     this.turn++;
 
-    this.dropPiece(colId);
-    this.updateBoard('' + colId);
-
-    if (this.checkWinner(colId)) {
-      console.log('We have a winner');
-    }
+    this.dropPiece(column);
     this.isRed = !this.isRed;
+
+    if (this.checkWinner(columnId)) {
+      console.log('We have a winner');
+      this.gameOver();
+    }
   }
 };
 
-Game.prototype.getColumnId = function(squareId) {
-  return parseInt(squareId.slice(0, 1));
+Game.prototype.getColumnId = function(column) {
+  return parseInt(column.id);
 };
 
 //  TODO: Verify this function
-Game.prototype.getSquareId = function(colId) {
-  let sqIndex =
-    this.matrix[colId].length > 0 ? this.matrix[colId].length - 1 : undefined;
-  return sqIndex || `${colId}${sqIndex}`;
+Game.prototype.getSquareId = function(column) {
+  let colId = this.getColumnId(column);
+  let sqIndex = this.matrix[colId].length;
+
+  return `${colId}${sqIndex}`;
+};
+
+Game.prototype.dropPiece = function(column) {
+  let colId = this.getColumnId(column);
+
+  let square = document.getElementById(this.getSquareId(column));
+
+  square &&
+    square.setAttribute(
+      'class',
+      `${square.getAttribute('class')} ${this.getCurrentColor()}`
+    );
+
+  this.matrix[colId].push(square);
 };
 
 Game.prototype.checkWinner = function(col) {
@@ -125,32 +130,8 @@ Game.prototype.getBackslash = function(sum) {
   return backslash;
 };
 
-/*
-  checks to see if the piece isRed
-*/
-Game.prototype.dropPiece = function(colId) {
-  this.matrix[colId].push(this.isRed);
-};
-
-// Game.prototype.resetGame = function() {};
-
-// Game.prototype.showWinningPieces = function(squares) {
-//   squares.forEach(sqr => console.log(sqr));
-//   showWinner(this.getCurrentColor());
-// };
-
 Game.prototype.getCurrentColor = function() {
   return this.colors[this.turn % 2];
-};
-
-Game.prototype.updateBoard = function(squareId) {
-  const colId = squareId.slice(0, 1);
-  const colIndx = game.matrix[colId].length - 1;
-  const $square = document.getElementById('' + colId + colIndx);
-
-  if ($square) {
-    $square.setAttribute('class', `square ${game.getCurrentColor()}`);
-  }
 };
 
 Game.prototype.checkSpacesForWin = function(squares) {
@@ -159,7 +140,9 @@ Game.prototype.checkSpacesForWin = function(squares) {
   }
 
   let fourInRow = squares.every(
-    (val, i, arr) => arr[i] === arr[(i + 1) % arr.length]
+    (val, i, arr) =>
+      arr[i].getAttribute('class') ===
+      arr[(i + 1) % arr.length].getAttribute('class')
   );
 
   let allUndefined = squares.every(elem => elem === undefined);
@@ -174,4 +157,8 @@ Game.prototype.checkSpacesForWin = function(squares) {
   return gameOver;
 };
 
-Game.prototype.gameOver = function() {};
+Game.prototype.gameOver = function() {
+  this.matrix = [[], [], [], [], [], [], []];
+  this.isRed = false;
+  this.gameHasEnded = true;
+};

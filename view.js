@@ -1,5 +1,3 @@
-// let $board;
-
 window.onload = function() {
   let numCols = 7;
   let numRows = 6;
@@ -36,20 +34,18 @@ function createSquare(colId, rowId) {
 }
 
 function showWinner(color) {
-  const $banner = document.createElement('h1');
+  const $banner = document.getElementById('banner');
   $banner.setAttribute('class', 'winner');
   $banner.innerHTML = `${color} has won`;
-  document.body.prepend($banner);
 
   setTimeout(function() {
     resetBoard();
-  }, 5000);
+  }, 2500);
 }
 
 function showWinningPieces(squares) {
   squares.forEach(sqr => {
-    console.log(sqr);
-    // sqr.style.border = 'thick solid #0000FF';
+    sqr.style.border = 'thick solid #0000FF';
   });
 }
 
@@ -57,6 +53,9 @@ function resetBoard() {
   const playAgain = confirm('Play Again?');
 
   if (playAgain) {
+    const $banner = document.getElementById('banner');
+    $banner.innerHTML = '';
+
     const $board = document.getElementById('board');
     const $columns = $board.childNodes;
 
@@ -65,7 +64,11 @@ function resetBoard() {
 
       $squares.forEach(div => {
         div.classList.remove('black', 'red');
+        div.style.border = '';
       });
     });
+    restart = true;
   }
 }
+
+var restart = false;
